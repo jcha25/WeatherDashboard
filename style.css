@@ -26,3 +26,11 @@ section {
     display: flex;
     flex-direction: row;
 }
+
+.forecast {
+    display: flex;
+    justify-content: space-evenly;
+}
+.forecastCard {
+    text-align: center;
+}

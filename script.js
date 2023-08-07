@@ -65,6 +65,12 @@ function getForecast(cityName) {
         var forecastTemp = document.createElement("p")
         forecastTemp.innerHTML = "Temp: " + data.list[index].main.temp + "&#176F"
         forecastCard[i].append(forecastTemp)
+        var forecastWind = document.createElement("p")
+        forecastWind.innerHTML = "Wind: " + data.list[index].wind.speed + "mph"
+        forecastCard[i].append(forecastWind)
+        var forecastHum = document.createElement("p")
+        forecastHum.innerHTML = "Hum: " + data.list[index].main.humidity + "%"
+        forecastCard[i].append(forecastHum)
       }
     })
 }

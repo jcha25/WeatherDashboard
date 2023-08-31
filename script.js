@@ -4,6 +4,7 @@ var searchBtn = document.querySelector(".searchBtn")
 var current = document.querySelector(".current")
 var forecast = document.querySelector(".forecast")
 var input = document.querySelector(".input")
+var historyEl = document.querySelector(".historyEl")
 
 var info = document.querySelector(".info")
 var icon = document.querySelector(".icon")
@@ -15,11 +16,32 @@ var forecastCard = document.querySelectorAll(".forecastCard")
 
 
 searchBtn.addEventListener("click", function(event) {
+    var history = JSON.parse(localStorage.getItem("history")) || []
     event.preventDefault()
     var city = input.value
+    history.push(city)
+    localStorage.setItem("history", JSON.stringify(history))
     getData(city)
     getForecast(city)
+    renderHistory()
 })
+
+function renderHistory() {
+    var history = JSON.parse(localStorage.getItem("history")) || []
+    historyEl.innerHTML = ""
+    for(var i = 0; i < history.length; i++) {
+        var li = document.createElement("button")
+        li.innerHTML = history[i]
+        historyEl.append(li)
+        li.addEventListener("click", function(event) {
+            var liValue = event.target.innerHTML;
+            getData(liValue)
+            getForecast(liValue)
+        })
+    }
+}
+
+renderHistory()
 
 function getData(cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${key}&units=imperial`)
